@@ -1,0 +1,57 @@
+# AdVitam dataset configuration for KSS Prediction Pipeline
+
+# Data configuration
+data:
+  features_dir: "data/AdVitam/Preprocessed2/Feature"
+  labels_dir: "data/AdVitam/Preprocessed2/Target"
+  labels_file: "all_kss_targets.json"
+  scenarios: ["scenario1", "scenario2"]
+  # num_participants: 5 # If specified, only use the first N participants. If null, use all participants.
+
+  # Feature selection configuration
+  feature_selection:
+    mode: "driving_baseline" # Options: "driving_only", "driving_baseline", "driving_minus_baseline", "all_combinations"
+    # Mode descriptions:
+    # - "driving_only": Only driving features (original behavior)
+    # - "driving_baseline": Driving features + baseline features as additional dimensions
+    # - "driving_minus_baseline": Driving features - baseline features (difference)
+    # - "all_combinations": All three options combined (driving, baseline, difference)
+
+    # Baseline feature handling
+    baseline_handling:
+      normalize_baseline: true # Whether to normalize baseline features
+      baseline_scaler: "standard" # "standard" or "robust" for baseline features
+
+# Preprocessing configuration
+preprocessing:
+  scaler: "standard" # "standard" or "robust"
+  impute_strategy: "mean" # "mean", "median", "most_frequent", "constant"
+  high_nan_threshold: 0.5 # Remove features with >50% NaN values
+  low_var_threshold: 1e-6 # Remove features with very low variance
+
+# Model configuration
+model:
+  use_improved_model: false # Use basic LSTM model
+  hidden_size: 128
+  num_layers: 4
+  dropout: 0
+  learning_rate: 0.00075
+  weight_decay: 1e-5
+  batch_size: 32
+  num_epochs: 200
+  patience: 80 # Early stopping patience
+  scheduler_t0: 10 # Cosine annealing warm restart period
+  scheduler_t_mult: 2 # Cosine annealing warm restart multiplier
+
+# Training configuration
+training:
+  random_state: 42
+  test_size: 0.2 # 20% for test set
+  val_size: 0.2 # 20% of remaining for validation
+
+# Prediction configuration
+prediction:
+  mode: "kss_direct" # Options: "kss_direct", "kss_difference"
+  # Mode descriptions:
+  # - "kss_direct": Predict KSS values directly
+  # - "kss_difference": Predict KSS difference (driving - baseline), then add baseline back for output

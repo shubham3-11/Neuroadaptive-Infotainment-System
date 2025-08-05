@@ -1,0 +1,24 @@
+[project]
+name = "tnivs-neuroadaptive-ml"
+version = "0.0.1"
+description = "Neuroadaptive physiological signal analysis using machine learning - CMU Capstone 2025"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "bioread>=2025.5.2",
+    "ipykernel>=6.29.5",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.3",
+    "nb-clean>=4.0.1",
+    "neurokit2>=0.2.11",
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.3",
+    "pyarrow>=20.0.0",
+    "python-dotenv>=1.1.1",
+    "pywavelets>=1.8.0",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "torch>=2.7.0",
+    "tqdm>=4.67.1",
+    "xgboost>=3.0.2",
+]

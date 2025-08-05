@@ -1,0 +1,35 @@
+data:
+  feature_selection:
+    baseline_handling:
+      baseline_scaler: standard
+      normalize_baseline: true
+    mode: driving_baseline
+  features_dir: data/AdVitam/Preprocessed2/Feature
+  labels_dir: data/AdVitam/Preprocessed2/Target
+  labels_file: all_kss_targets.json
+  scenarios:
+  - scenario1
+  - scenario2
+model:
+  batch_size: 32
+  dropout: 0
+  hidden_size: 128
+  learning_rate: 0.001
+  num_epochs: 200
+  num_layers: 3
+  patience: 10
+  scheduler_t0: 10
+  scheduler_t_mult: 2
+  use_improved_model: false
+  weight_decay: 1e-5
+prediction:
+  mode: kss_direct
+preprocessing:
+  high_nan_threshold: 0.5
+  impute_strategy: mean
+  low_var_threshold: 1e-6
+  scaler: standard
+training:
+  random_state: 42
+  test_size: 0.2
+  val_size: 0.2
